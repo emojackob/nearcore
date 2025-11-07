@@ -15,6 +15,29 @@ Building nearcore requires a fairly recent Rust compiler (get it
 [here](https://rustup.rs)), as well as `clang` and `cmake` to build RocksDB
 (`sudo apt install cmake clang`).
 
+### Compiler Version Compatibility
+
+If you encounter compilation errors related to `uint64_t` or `uint32_t` not being
+declared when building on Linux, it may be due to using a GCC version that is too
+new (e.g., GCC 15+). In such cases, you can specify an older GCC version by
+setting the `CC` and `CXX` environment variables:
+
+```console
+$ export CXX=g++-14
+$ export CC=gcc-14
+$ cargo clean
+$ make neard-release
+```
+
+Alternatively, you can use `clang` instead:
+
+```console
+$ export CXX=clang++
+$ export CC=clang
+$ cargo clean
+$ make neard-release
+```
+
 Sadly at the moment nearcore is only compatible with Linux and MacOS, Windows is
 not supported yet.
 
